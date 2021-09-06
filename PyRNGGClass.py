@@ -15,7 +15,6 @@ class Game:
         return self.Guesses
     def add_guess(self, Guess):
         self.Guesses.append(Guess)
-
     def check_guess(self, UserGuess):
         if UserGuess > self.Number:
             print ("Your guess is higher than the random number")
@@ -26,7 +25,6 @@ class Game:
         elif UserGuess == self.Number:
             print ("Congratulations, you guessed the number!") 
             return True
-
     def print_menu(self):
         print ("Turns Remaining: {} - Guesses: {}".format(self.Turns, self.Guesses))
         print ("Guess a number between {} and {}:".format(self.Rand_Min, self.Rand_Max), end =" ")
