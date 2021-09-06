@@ -1,4 +1,3 @@
-import random
 from PyRNGGClass import Game
 
 def main():

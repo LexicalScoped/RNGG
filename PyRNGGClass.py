@@ -1,3 +1,5 @@
+import random
+
 class Game:
     def __init__(self, Turns=10, rMin=1, rMax=100):
         self.Turns = Turns
