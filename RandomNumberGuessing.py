@@ -2,7 +2,7 @@ from PyRNGGClass import Game
 
 def main():
     game = Game(10, 1, 100)
-    while game.get_turns > 0:
+    while game.get_turns() > 0:
         game.print_menu()
         UserInput = input()
         if game.validate_input(UserInput):

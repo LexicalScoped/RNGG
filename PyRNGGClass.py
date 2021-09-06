@@ -10,19 +10,23 @@ class Game:
     def get_turns(self):
         return self.Turns
     def decrement_turns(self):
-        if input.isdigit():
-            self.Turns -= 1
+        self.Turns -= 1
     def get_guesses(self):
         return self.Guesses
     def add_guess(self, Guess):
         self.Guesses.append(Guess)
+
     def check_guess(self, UserGuess):
         if UserGuess > self.Number:
             print ("Your guess is higher than the random number")
-        if UserGuess > self.Number:
+            return False
+        elif UserGuess < self.Number:
             print ("Your guess is lower than the random number") 
-        if UserGuess == self.Number:
+            return False
+        elif UserGuess == self.Number:
+            print ("Congratulations, you guessed the number!") 
             return True
+
     def print_menu(self):
         print ("Turns Remaining: {} - Guesses: {}".format(self.Turns, self.Guesses))
         print ("Guess a number between {} and {}:".format(self.Rand_Min, self.Rand_Max), end =" ")
