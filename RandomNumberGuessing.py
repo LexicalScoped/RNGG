@@ -1,45 +1,55 @@
 import random
 
-Config = { "Turns": 10, "Rand_Min": 1, "Rand_Max": 100 }
-Number = int(random.randrange(Config["Rand_Min"], Config["Rand_Max"]))
-Guesses = []
+class Game:
+    def __init__(self, Turns=10, rMin=1, rMax=100):
+        self.Turns = Turns
+        self.Rand_Min = rMin
+        self.Rand_Max = rMax
+        self.Number = int(random.randrange(rMin,rMax))
+        self.Guesses = []
+    def get_turns(self):
+        return self.Turns
+    def decrement_turns(self):
+        if input.isdigit():
+            self.Turns -= 1
+    def get_guesses(self):
+        return self.Guesses
+    def add_guess(self, Guess):
+        self.Guesses.append(Guess)
+    def check_guess(self, UserGuess):
+        if UserGuess > self.Number:
+            print ("Your guess is higher than the random number")
+        if UserGuess > self.Number:
+            print ("Your guess is lower than the random number") 
+        if UserGuess == self.Number:
+            return True
+    def print_menu(self):
+        print ("Turns Remaining: {} - Guesses: {}".format(self.Turns, self.Guesses))
+        print ("Guess a number between {} and {}:".format(self.Rand_Min, self.Rand_Max), end =" ")
 
-def PrintMenu():
-    print ("Turns Remaining: {} - Guesses: {}".format(Config["Turns"], Guesses))
-    print ("Guess a number between {} and {}:".format(Config["Rand_Min"], Config["Rand_Max"]), end =" ")
-
-def ValidateInput(UserInputData):
-    if not UserInputData.isdigit():
-        return False
-    if int(UserInputData) not in range(Config["Rand_Min"], Config["Rand_Max"]):
-        return False
-    if int(UserInputData) in Guesses:
-        return False
-    else:
-        return True
-
-def CheckGuess(UserGuess):
-    if UserGuess > Number:
-        print ("Your guess is higher than the random number")
-    if UserGuess > Number:
-        print ("Your guess is lower than the random number") 
-    if UserGuess == Number:
-        return True
+    def validate_input(self, UserInputData):
+        if (
+            UserInputData.isdigit()
+            and int(UserInputData) in range(self.Rand_Min, self.Rand_Max)
+            and int(UserInputData) not in self.Guesses ):
+            return True
+        else:
+            return False
 
 def main():
-    while Config["Turns"] > 0:
-        PrintMenu()
+    game = Game(10, 1, 100)
+    while game.get_turns > 0:
+        game.print_menu()
         UserInput = input()
-        if ValidateInput(UserInput):
-            Guess = int(UserInput)
-            Guesses.append(Guess)
-            Config["Turns"] -= 1
-            if CheckGuess(Guess):
+        if game.validate_input(UserInput):
+            game.add_guess(int(UserInput))
+            game.decrement_turns()
+            if game.check_guess(int(UserInput)):
                 break
         else:
             print ("Invalid Guess")
 
-    if Config["Turns"] == 0:
+    if game.get_turns() == 0:
         print("You ran out of turns, Game Over")
 
 if __name__ == "__main__":
