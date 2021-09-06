@@ -4,25 +4,38 @@ Config = { "Turns": 10, "Rand_Min": 1, "Rand_Max": 100 }
 Number = int(random.randrange(Config["Rand_Min"], Config["Rand_Max"]))
 Guesses = []
 
+def PrintMenu():
+    print ("Turns Remaining: {} - Guesses: {}".format(Config["Turns"], Guesses))
+    print ("Guess a number between {} and {}:".format(Config["Rand_Min"], Config["Rand_Max"]), end =" ")
+
+def ValidateInput(UserInputData):
+    if not UserInputData.isdigit():
+        return False
+    if int(UserInputData) not in range(Config["Rand_Min"], Config["Rand_Max"]):
+        return False
+    if int(UserInputData) in Guesses:
+        return False
+    else:
+        return True
+
+def CheckGuess(UserGuess):
+    if UserGuess > Number:
+        print ("Your guess is higher than the random number")
+    if UserGuess > Number:
+        print ("Your guess is lower than the random number") 
+    if UserGuess == Number:
+        return True
+
 def main():
     while Config["Turns"] > 0:
-        print ("Turns Remaining: {} - Guesses: {}".format(Config["Turns"], Guesses))
-        UserInput = input("Guess a number between {} and {}: ".format(Config["Rand_Min"], Config["Rand_Max"]))
-        if not UserInput.isdigit():
-            print ("Invalid Guess")
-            continue
-        Guess = int(UserInput)
-        
-        if Guess in range(Config["Rand_Min"], Config["Rand_Max"]) and Guess not in Guesses:
+        PrintMenu()
+        UserInput = input()
+        if ValidateInput(UserInput):
+            Guess = int(UserInput)
             Guesses.append(Guess)
             Config["Turns"] -= 1
-            if Guess == Number:
-                print ("You guessed the Number! Congratulations")
+            if CheckGuess(Guess):
                 break
-            elif Guess > Number:
-                print ("Your guess is higher than the random number")
-            elif Guess < Number:
-                print ("Your guess is lower than the random number") 
         else:
             print ("Invalid Guess")
 
