@@ -7,12 +7,8 @@ class Game:
         self.Rand_Max = rMax
         self.Number = int(random.randrange(rMin,rMax))
         self.Guesses = []
-    def get_turns(self):
-        return self.Turns
     def decrement_turns(self):
         self.Turns -= 1
-    def get_guesses(self):
-        return self.Guesses
     def add_guess(self, Guess):
         self.Guesses.append(Guess)
     def check_guess(self, UserGuess):
